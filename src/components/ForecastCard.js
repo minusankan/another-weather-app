@@ -1,10 +1,6 @@
 import React from "react";
-import {
-    Card,
-    Grid,
-    CardContent,
-    Typography
-} from "@mui/material";
+import { Card, Grid, CardContent, Typography, Box } from "@mui/material";
+import WeatherIcon from "./WeatherIcon";
 import { formatDate, groupByDate } from "../utils/dateUtils";
 
 const ForecastCard = ({ forecast }) => {
@@ -21,11 +17,17 @@ const ForecastCard = ({ forecast }) => {
             Forecast
           </Typography>
           {next7DaysForecast?.map((day, index) => (
-            <Grid container key={index} spacing={1}>
-              <Grid item xs={12} sm={6}>
+            <Box
+              key={index}
+              display="flex"
+              alignItems="center"
+              marginBottom={2}
+            >
+              <Box alignItems="center">
                 <Typography variant="body1">{formatDate(day.dt)}</Typography>
-              </Grid>
-              <Grid item xs={12} sm={6}>
+                <WeatherIcon name={day.weather[0].main} />
+              </Box>
+              <Box marginLeft={2}>
                 <Typography variant="body1">
                   Max Temp: {day.main.temp_max}°C
                 </Typography>
@@ -35,8 +37,8 @@ const ForecastCard = ({ forecast }) => {
                 <Typography variant="body1">
                   Weather: {day.weather[0].description}
                 </Typography>
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
           ))}
         </CardContent>
       </Card>
